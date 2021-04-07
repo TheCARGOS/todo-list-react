@@ -1,0 +1,25 @@
+.ui.grid.main-page {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+
+    .row {
+        margin: 0;
+        padding: 0;
+
+        &:first-of-type {
+            height: 7vh;
+        }
+        &:last-of-type {
+            height: 93vh;
+        }
+    }
+}
+.main-bar {
+    border: 2px solid green;
+}
+
+.column {
+    border: 2px solid red;
+}
+
