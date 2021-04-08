@@ -1,0 +1,30 @@
+@import "../../scss/index.scss";
+
+.main-admin-panel {
+    border-right: 1px solid $color-grey;
+    height: 100%;
+
+    &__header {
+        background-color: $color-grey;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 32px;
+
+        
+        &__title {
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    }
+
+    &__form {
+        padding: 20px;
+    }
+}

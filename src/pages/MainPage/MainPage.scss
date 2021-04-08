@@ -8,10 +8,10 @@
         padding: 0;
 
         &:first-of-type {
-            height: 7vh;
+            height: 10vh;
         }
         &:last-of-type {
-            height: 93vh;
+            height: 90vh;
         }
 
         .column {
@@ -20,11 +20,3 @@
         }
     }
 }
-.main-bar {
-    border: 2px solid green;
-}
-
-.column {
-    border: 2px solid red;
-}
-
