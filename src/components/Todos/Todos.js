@@ -2,12 +2,16 @@ import "./Todos.scss"
 import Todo from "./Todo"
 import TodosFilter from "./TodosFilter"
 
-export default function Todos() {
+export default function Todos({todos}) {
     return (
-        <div>
-            <TodosFilter />
-            <h1>Todos Component</h1>            
-            <Todo />
+        <div className="todos-container">
+            { todos.map(todo => 
+                <Todo
+                    name={ todo.name }
+                    description={ todo.description }
+                    isActive={ todo.isActive }
+                />
+            )}
         </div>
     )
 }

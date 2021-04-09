@@ -12,12 +12,10 @@ export default function AdminPanel() {
                     <Input placeholder="To-Do name" />
                 </Form.Field>
                 <Form.Field>
-                    {/* <Input placeholder="To-Do name" /> */}
-                    <TextArea placeholder="Why would you do this
-to-do?"></TextArea>
+                    <TextArea placeholder="Why would you do this to-do?"></TextArea>
                 </Form.Field>  
 
-                <Button fluid type="submit">
+                <Button fluid>
                     <Icon name="plus" />
                     ADD
                 </Button>

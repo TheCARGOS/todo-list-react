@@ -6,71 +6,69 @@ import Todos from "../../components/Todos"
 import { useState, useEffect } from "react"
 
 export default function MainPage() {
-    const [tasks, setTasks] = useState([])
+    const [todos, setTodos] = useState([])
 
     useEffect(() => {
-        const getTasks = async () => {
-            const tasksFromServer = await fetchTasks()
-            setTasks(tasksFromServer)
-        }
-      
-        getTasks()
+        (async () => {
+            const todosFromServer = await fetchTodos()
+            setTodos(todosFromServer)
+        })()
     }, [])
 
-    const fetchTasks = async () => {
-        const res = await fetch("http://localhost:5000/tasks")
-        const tasks = await res.json()
-        return tasks
+    const fetchTodos = async () => {
+        const res = await fetch("http://localhost:5000/todos")
+        const todosResponse = await res.json()
+        return todosResponse
     }
 
-    const fetchTask = async (id) => {
-        const res = await fetch("http://localhost:5000/task/id")
-        const task = await res.json()
-        return task
+    const fetchtodo = async (id) => {
+        const res = await fetch("http://localhost:5000/todo/id")
+        const todo = await res.json()
+        return todo
     }
 
-    const addTask = async (task) => {
-        const res = await fetch("http://localhost:5000/task/", {
+    const addTodo = async (todo) => {
+        const res = await fetch("http://localhost:5000/todo/", {
             method: "POST",
             headers: {
                 'Content-type': 'application/json'
             },
-            body: JSON.stringify(task),
+            body: JSON.stringify(todo),
         })
 
-        const newTask = await res.json()
-        setTasks([...tasks, newTask])
+        const newTodo = await res.json()
+        setTodos([...todos, newTodo])
     }
 
-    const deleteTask = async (id) => {
-        const res = await fetch(`http://localhost:5000/task/${id}`, {
+    const deleteTodo = async (id) => {
+        const res = await fetch(`http://localhost:5000/todo/${id}`, {
             method: "DELETE"
         })
 
         res.status == 200?
-            setTasks( tasks.filter( task => task.id !== id ) ):
-            alert("Error deleting this task.")
+            setTodos( todos.filter( todo => todo.id !== id ) ):
+            alert("Error deleting this todo.")
     }
 
-    const toggleTaskActive = async (id, task) => {
-        const taskToToggle = await fetchTask(id)
-        const toggledTask = {
-            ...taskToToggle,
-            active: !taskToToggle.active
+    const toggleTodoActive = async (id, todo) => {
+        const todoToToggle = await fetchtodo(id)
+        const toggledTodo = {
+            ...todoToToggle,
+            active: !todoToToggle.active
         }
 
-        const res = await fetch(`http://localhost:5000/task/${id}`, {
+        const res = await fetch(`http://localhost:5000/todo/${id}`, {
             method: "PUT",
             headers: {
                 'Content-type': 'application/json'
             },
-            body: JSON.stringify(toggledTask)
+            body: JSON.stringify(toggledTodo)
         })
 
         const data = await res.json()
-        setTasks(
-            tasks.map( task => {
-                return task.id === id ? { ...task, active: data.active } : task
+        setTodos(
+            todos.map( todo => {
+                return todo.id === id ? { ...todo, active: data.active } : todo
             } )
         )
     }
@@ -87,7 +85,9 @@ export default function MainPage() {
                     <AdminPanel />
                 </Grid.Column>
                 <Grid.Column className="column" width={13}>
-                    <Todos />
+                    {
+                        todos.length > 0 ? (<Todos  todos={todos} />) : ("No Todos to show")
+                    }
                 </Grid.Column>
             </Grid.Row>
         </Grid>
