@@ -1,0 +1,30 @@
+@import "../../../scss/index.scss";
+
+.todos-filter {
+    padding: 18px 50px;
+    display: flex;
+
+    .ui.checkbox input.hidden+label {
+        text-transform: uppercase;
+        font-size: 20px !important;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin-right: 25px;
+    }
+
+    label {
+        padding-left: 25px !important;
+    }
+    
+    .ui.radio.checkbox .box:before, .ui.radio.checkbox label:before {
+        border-radius: 5px !important;
+        border: 1px solid $color-grey;
+    }
+
+    .ui.radio.checkbox.checked .ui.radio.checkbox .box:before, .ui.radio.checkbox.checked label:before {
+        background-color: $color-grey !important;
+    }
+
+    .ui.radio.checkbox.checked .ui.radio.checkbox .box:after, .ui.radio.checkbox.checked label:after {
+        background-color: transparent !important;
+    }
+}

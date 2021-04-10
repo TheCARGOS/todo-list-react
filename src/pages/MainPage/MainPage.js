@@ -3,17 +3,34 @@ import { Grid } from "semantic-ui-react"
 import Header from "../../components/Header"
 import AdminPanel from "../../components/AdminPanel"
 import Todos from "../../components/Todos"
+import TodosFilter from "../../components/Todos/TodosFilter"
 import { useState, useEffect } from "react"
 
 export default function MainPage() {
     const [todos, setTodos] = useState([])
+    const [filter, setFilter] = useState("all")
+    const [filteredTodos, setFilteredTodos] = useState([])
 
-    useEffect(() => {
-        (async () => {
+
+    useEffect( async () => {
             const todosFromServer = await fetchTodos()
             setTodos(todosFromServer)
-        })()
-    }, [])
+
+            updatedFilteredTodos()
+
+    }, [filter])
+
+    const updatedFilteredTodos = () => {
+        if ( filter == "all" ) {
+            setFilteredTodos(todos)
+        } else {
+            if ( filter == "active" ) {
+                setFilteredTodos(todos.filter(todo => todo.isActive === true))
+            } else {
+                setFilteredTodos(todos.filter(todo => todo.isActive === false))
+            }
+        }
+    }
 
     const fetchTodos = async () => {
         const res = await fetch("http://localhost:5000/todos")
@@ -45,7 +62,7 @@ export default function MainPage() {
             method: "DELETE"
         })
 
-        res.status == 200?
+        res.status === 200?
             setTodos( todos.filter( todo => todo.id !== id ) ):
             alert("Error deleting this todo.")
     }
@@ -85,9 +102,10 @@ export default function MainPage() {
                     <AdminPanel />
                 </Grid.Column>
                 <Grid.Column className="column" width={13}>
-                    {
-                        todos.length > 0 ? (<Todos  todos={todos} />) : ("No Todos to show")
-                    }
+                    <TodosFilter setFilter={setFilter} filter={filter} />
+                    { todos.length > 0 ?
+                        (<Todos  todos={filteredTodos} />):
+                        ("No Todos to show") }
                 </Grid.Column>
             </Grid.Row>
         </Grid>
