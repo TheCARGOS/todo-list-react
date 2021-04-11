@@ -1,12 +1,16 @@
-import { Icon } from "semantic-ui-react"
+import { Icon, Button } from "semantic-ui-react"
 import "./Todo.scss"
 import { useState } from "react"
 
-export default function Todo({name, description, isActive}) {
+export default function Todo({name, description, isActive, id, deleteTodo}) {
     const [showContent, setShowContent] = useState(false)
 
     const toggleShowContent = () => {
         setShowContent(!showContent)
+    }
+
+    const handleDeleteTodo = () => {
+        deleteTodo(id)
     }
 
     return (
@@ -19,7 +23,14 @@ export default function Todo({name, description, isActive}) {
                 />
             </div>
             <div className={`todo__content ${showContent? "" : "todo__content--hide"} `}>
-                <span className="todo__content__span">{ description }</span>
+                <p className="todo__content__span">{ description }</p>
+                <Button
+                    onClick={ handleDeleteTodo }
+                    color="black"
+                    float="right"
+                >
+                    DELETE
+                </Button>
             </div>
         </div>
     )

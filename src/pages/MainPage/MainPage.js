@@ -8,8 +8,9 @@ import { useState, useEffect } from "react"
 
 export default function MainPage() {
     const [todos, setTodos] = useState([])
-    const [filter, setFilter] = useState("all")
+    const [filter, setFilter] = useState()
     const [filteredTodos, setFilteredTodos] = useState([])
+
 
 
     useEffect( async () => {
@@ -32,20 +33,26 @@ export default function MainPage() {
         }
     }
 
+    const updateFiltered = () => {
+        const otherFiltered = filter === "all"? "active" : "all"
+        setFilter(otherFiltered)
+        setFilter(filter)
+    }
+
     const fetchTodos = async () => {
         const res = await fetch("http://localhost:5000/todos")
         const todosResponse = await res.json()
         return todosResponse
     }
 
-    const fetchtodo = async (id) => {
-        const res = await fetch("http://localhost:5000/todo/id")
+    const fetchTodo = async (id) => {
+        const res = await fetch("http://localhost:5000/todos/id")
         const todo = await res.json()
         return todo
     }
 
     const addTodo = async (todo) => {
-        const res = await fetch("http://localhost:5000/todo/", {
+        const res = await fetch("http://localhost:5000/todos/", {
             method: "POST",
             headers: {
                 'Content-type': 'application/json'
@@ -55,26 +62,29 @@ export default function MainPage() {
 
         const newTodo = await res.json()
         setTodos([...todos, newTodo])
+        updateFiltered()
     }
 
     const deleteTodo = async (id) => {
-        const res = await fetch(`http://localhost:5000/todo/${id}`, {
+        const res = await fetch(`http://localhost:5000/todos/${id}`, {
             method: "DELETE"
         })
 
         res.status === 200?
             setTodos( todos.filter( todo => todo.id !== id ) ):
             alert("Error deleting this todo.")
+
+        updateFiltered()
     }
 
     const toggleTodoActive = async (id, todo) => {
-        const todoToToggle = await fetchtodo(id)
+        const todoToToggle = await fetchTodo(id)
         const toggledTodo = {
             ...todoToToggle,
             active: !todoToToggle.active
         }
 
-        const res = await fetch(`http://localhost:5000/todo/${id}`, {
+        const res = await fetch(`http://localhost:5000/todos/${id}`, {
             method: "PUT",
             headers: {
                 'Content-type': 'application/json'
@@ -99,12 +109,12 @@ export default function MainPage() {
             </Grid.Row>
             <Grid.Row>
                 <Grid.Column className="column" width={3}>
-                    <AdminPanel />
+                    <AdminPanel addTodo={addTodo} />
                 </Grid.Column>
                 <Grid.Column className="column" width={13}>
                     <TodosFilter setFilter={setFilter} filter={filter} />
                     { todos.length > 0 ?
-                        (<Todos  todos={filteredTodos} />):
+                        (<Todos  todos={filteredTodos} deleteTodo={deleteTodo} />):
                         ("No Todos to show") }
                 </Grid.Column>
             </Grid.Row>
