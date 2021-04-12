@@ -1,4 +1,4 @@
-import { Icon, Input, Button, Divider } from "semantic-ui-react"
+import { Icon, Input, Button, Divider, TextArea } from "semantic-ui-react"
 import "./Todo.scss"
 import { useState } from "react"
 
@@ -57,7 +57,7 @@ export default function Todo({name, description, isActive, id, deleteTodo, editT
             </div>
             <div className={`todo__content ${showContent? "" : "todo__content--hide"} `}>
                 { isEditing?
-                    <Input
+                    <TextArea
                         defaultValue={description}
                         style={{width:"100%"}}
                         onChange={ handleFormChange }

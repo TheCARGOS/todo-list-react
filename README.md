@@ -1,8 +1,17 @@
 # My Very First To-Do With ReactJS
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+This challenge was proposed by myself, design is also made by me.
+
+[See live preview](https://thecargos.github.io/todo-list-react/)
 
 ### Given this design made by me:
 ![Desktop View](./design/todo-list-react-design.png)
 
-### Result:
+### My Result:
+![Result](./design/result.png)
+
+## Techs used
+- Reactjs
+- SCSS
+- Semantinc UI
