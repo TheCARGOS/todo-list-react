@@ -1,13 +1,18 @@
 import "./TodosFilter.scss"
-import { Checkbox, FormField } from "semantic-ui-react"
+import { Checkbox, FormField, Input, Icon } from "semantic-ui-react"
 
-export default function TodosFilter({setFilter, filter}) {
+export default function TodosFilter({setFilter, filter, setToSearch}) {
 
     const handleSetFilter = (e, { value }) => setFilter(value)
 
+    const handleOnChange = e => {
+        const upperCase = e.target.value.toUpperCase()
+        setToSearch( upperCase )
+    }
+
     return (
         <div className="todos-filter">
-            <FormField>
+            <FormField className="todo-filter__form-field">
                 <Checkbox 
                     radio
                     value="all"
@@ -30,6 +35,14 @@ export default function TodosFilter({setFilter, filter}) {
                     checked={ filter === "inactive" }
                 />
             </FormField>
+            <Input
+                size="massive"
+                icon="search"
+                iconPosition="left"
+                placeholder="To-do to search..."
+                className="todo-filter__search"
+                onChange={handleOnChange}
+            />
         </div>
     )
 }

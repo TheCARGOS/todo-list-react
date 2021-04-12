@@ -10,6 +10,7 @@ export default function MainPage() {
     const [todos, setTodos] = useState([])
     const [filter, setFilter] = useState()
     const [filteredTodos, setFilteredTodos] = useState([])
+    const [toSearch, setToSearch] = useState("")
 
 
 
@@ -19,18 +20,30 @@ export default function MainPage() {
 
             updatedFilteredTodos()
 
-    }, [filter])
+    }, [filter, toSearch])
 
     const updatedFilteredTodos = () => {
+        let secondFilter
         if ( filter == "all" ) {
-            setFilteredTodos(todos)
+            secondFilter = todos.filter( todo => 
+                todo.name.toUpperCase().includes(toSearch)
+            )
         } else {
             if ( filter == "active" ) {
-                setFilteredTodos(todos.filter(todo => todo.isActive === true))
+                // setFilteredTodos(todos.filter(todo => todo.isActive === true))
+                secondFilter = todos.filter(todo => todo.isActive === true)
+                secondFilter = secondFilter.filter( todo => 
+                    todo.name.toUpperCase().includes(toSearch)
+                )
             } else {
-                setFilteredTodos(todos.filter(todo => todo.isActive === false))
+                // setFilteredTodos(todos.filter(todo => todo.isActive === false))
+                secondFilter = todos.filter(todo => todo.isActive === false)
+                secondFilter = secondFilter.filter( todo => 
+                    todo.name.toUpperCase().includes(toSearch)
+                )
             }
         }
+        setFilteredTodos(secondFilter)
     }
 
     const updateFiltered = () => {
@@ -112,7 +125,11 @@ export default function MainPage() {
                     <AdminPanel addTodo={addTodo} />
                 </Grid.Column>
                 <Grid.Column className="column" width={13}>
-                    <TodosFilter setFilter={setFilter} filter={filter} />
+                    <TodosFilter
+                        setFilter={setFilter}
+                        filter={filter} 
+                        setToSearch={setToSearch}
+                    />
                     { todos.length > 0 ?
                         (<Todos  todos={filteredTodos} deleteTodo={deleteTodo} />):
                         ("No Todos to show") }

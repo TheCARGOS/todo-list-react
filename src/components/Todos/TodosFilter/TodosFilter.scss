@@ -1,8 +1,10 @@
 @import "../../../scss/index.scss";
 
 .todos-filter {
-    padding: 18px 50px;
+    padding: 35px 50px;
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 
     .ui.checkbox input.hidden+label {
         text-transform: uppercase;
@@ -26,5 +28,10 @@
 
     .ui.radio.checkbox.checked .ui.radio.checkbox .box:after, .ui.radio.checkbox.checked label:after {
         background-color: transparent !important;
+    }
+
+    .ui.input.todo-filter__search {
+        margin-top: 30px;
+        width: 100%;
     }
 }

@@ -31,10 +31,16 @@
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco"
     },
     {
-      "name": "LEARN HOW TO PLAY JAKIRO",
+      "name": "PLAY AS JAKIRO",
       "description": "",
       "isActive": false,
       "id": 6
+    },
+    {
+      "name": "LEARN HOW TO PLAY GRIMSTROKE",
+      "description": "",
+      "isActive": false,
+      "id": 7
     }
   ]
 }
