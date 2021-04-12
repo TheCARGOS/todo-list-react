@@ -38,42 +38,6 @@ export default function Todo({name, description, isActive, id, deleteTodo, editT
         setIsEditing(false)
     }
 
-    const defaultButtonsGroup = () => {
-        return (
-            <div>
-                <Button
-                    onClick={ () => setIsEditing(true) }
-                >
-                    EDIT TO-DO
-                </Button>
-                <Button
-                    onClick={ handleDeleteTodo }
-                    color="black"
-                >
-                    DELETE
-                </Button>
-            </div>
-        )
-    }
-
-    const onEditButtonsGroup = () => {
-        return (
-            <div>
-                <Button
-                    onClick={ () => setIsEditing(false) }
-                >
-                    CANCEL EDITING
-                </Button>
-                <Button
-                    onClick={ applyChanges }
-                    color="black"
-                >
-                    APPLY CHANGES
-                </Button>
-            </div>
-        )
-    }
-
     return (
         <div className={`todo ${isActive? "todo--active": ""}`}>
             <div class="todo__header" onClick={ toggleShowContent }>
@@ -102,10 +66,15 @@ export default function Todo({name, description, isActive, id, deleteTodo, editT
                     <p className="todo__content__span">{ description }</p>
                 }
                 <Divider />
-                { isEditing?
-                    onEditButtonsGroup():
-                    defaultButtonsGroup()
-                }
+                <Button
+                    onClick={ isEditing? (() => setIsEditing(false)): () => setIsEditing(true) }
+                    content={ isEditing? "CANCEL EDIT": "EDIT TO-DO" }
+                />
+                <Button
+                    onClick={ isEditing? (applyChanges): (handleDeleteTodo) }
+                    content={ isEditing? "APPLY CHANGES": "DELETE TO-DO" }
+                    color="black"
+                />
             </div>
         </div>
     )

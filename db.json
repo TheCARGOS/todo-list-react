@@ -35,6 +35,12 @@
       "name": "LEARN HOW TO PLAY SHAMAN",
       "description": "aaaa",
       "isActive": false
+    },
+    {
+      "id": 7,
+      "name": "LEARN HOW TO PLAY JAKIRO",
+      "description": "aseasdas",
+      "isActive": false
     }
   ]
 }
