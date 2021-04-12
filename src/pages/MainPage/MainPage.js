@@ -90,6 +90,17 @@ export default function MainPage() {
         updateFiltered()
     }
 
+    const editTodo = async (id, todo) => {
+        const res = await fetch(`http://localhost:5000/todos/${id}`, {
+            method: "PUT",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(todo)
+        })
+        updateFiltered()
+    }
+
     const toggleTodoActive = async (id, todo) => {
         const todoToToggle = await fetchTodo(id)
         const toggledTodo = {
@@ -131,7 +142,11 @@ export default function MainPage() {
                         setToSearch={setToSearch}
                     />
                     { todos.length > 0 ?
-                        (<Todos  todos={filteredTodos} deleteTodo={deleteTodo} />):
+                        (<Todos 
+                            todos={filteredTodos}
+                            deleteTodo={deleteTodo}
+                            editTodo={editTodo}
+                        />):
                         ("No Todos to show") }
                 </Grid.Column>
             </Grid.Row>
